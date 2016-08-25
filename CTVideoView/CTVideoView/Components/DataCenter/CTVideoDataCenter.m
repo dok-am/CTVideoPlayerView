@@ -71,7 +71,7 @@
 
 - (id<CTPersistanceRecordProtocol>)recordOfRemoteUrl:(NSURL *)url
 {
-    NSString *whereCondition = @"`remoteUrl` = ':remoteUrlString'";
+    NSString *whereCondition = @"`remoteUrl` = :remoteUrlString";
     NSString *remoteUrlString = [url absoluteString];
     NSDictionary *params = NSDictionaryOfVariableBindings(remoteUrlString);
     CTVideoRecord *videoRecord = (CTVideoRecord *)[self.videoTable findFirstRowWithWhereCondition:whereCondition conditionParams:params isDistinct:NO error:NULL];
