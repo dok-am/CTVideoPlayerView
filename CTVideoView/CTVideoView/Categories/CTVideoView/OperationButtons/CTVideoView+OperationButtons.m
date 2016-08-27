@@ -120,7 +120,7 @@ static void * CTVideoViewOperationButtonsPropertyButtonDelegate;
     if ([self.buttonDelegate respondsToSelector:@selector(videoView:didTappedRetryButton:)]) {
         [self.buttonDelegate videoView:self didTappedRetryButton:retryButton];
     }
-    [self prepare];
+    [self prepareWithAutoplay:YES];
 }
 
 #pragma mark - getters and setters

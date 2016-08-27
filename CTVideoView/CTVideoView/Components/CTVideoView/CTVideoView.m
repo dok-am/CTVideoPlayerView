@@ -158,7 +158,7 @@ static void * kCTVideoViewKVOContext = &kCTVideoViewKVOContext;
 
     } else {
         self.isPreparedForPlay = YES;
-        [self prepare];
+        [self prepareWithAutoplay:YES];
     }
 }
 
