@@ -44,7 +44,7 @@
 @property (nonatomic, strong, readonly) AVURLAsset *asset;
 @property (nonatomic, strong, readonly) AVPlayerItem *playerItem;
 
-- (void)prepare;
+- (void)prepareWithAutoplay:(BOOL)autoplay;
 - (void)play;
 - (void)pause;
 - (void)replay;

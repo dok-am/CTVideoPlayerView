@@ -107,7 +107,7 @@ static void * kCTVideoViewKVOContext = &kCTVideoViewKVOContext;
 }
 
 #pragma mark - public methods
-- (void)prepare
+- (void)prepareWithAutoplay:(BOOL)autoplay
 {
     if (self.isPlaying == YES && self.isVideoUrlChanged == NO) {
         return;
@@ -125,7 +125,7 @@ static void * kCTVideoViewKVOContext = &kCTVideoViewKVOContext;
         return;
     }
     
-    if (self.prepareStatus == CTVideoViewPrepareStatusPrepareFinished) {
+    if (self.prepareStatus == CTVideoViewPrepareStatusPrepareFinished && autoplay) {
         [self checkAndPlayAfterPrepareFinished];
         return;
     }
