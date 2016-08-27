@@ -115,13 +115,13 @@ static void * kCTVideoViewKVOContext = &kCTVideoViewKVOContext;
 
     if (self.assetToPlay) {
         self.prepareStatus = CTVideoViewPrepareStatusPreparing;
-        [self asynchronouslyLoadURLAsset:self.assetToPlay];
+        [self asynchronouslyLoadURLAsset:self.assetToPlay withAutoplay:autoplay];
         return;
     }
     
     if (self.asset && self.prepareStatus == CTVideoViewPrepareStatusNotPrepared) {
         self.prepareStatus = CTVideoViewPrepareStatusPreparing;
-        [self asynchronouslyLoadURLAsset:self.asset];
+        [self asynchronouslyLoadURLAsset:self.asset withAutoplay:autoplay];
         return;
     }
     
@@ -231,7 +231,12 @@ static void * kCTVideoViewKVOContext = &kCTVideoViewKVOContext;
 }
 
 #pragma mark - private methods
-- (void)asynchronouslyLoadURLAsset:(AVAsset *)asset
+
+- (void)asynchronouslyLoadURLAsset:(AVAsset *)asset {
+    [self asynchronouslyLoadURLAsset:asset withAutoplay:YES];
+}
+
+- (void)asynchronouslyLoadURLAsset:(AVAsset *)asset withAutoplay:(BOOL)autoplay
 {
     if ([self.operationDelegate respondsToSelector:@selector(videoViewWillStartPrepare:)]) {
         [self.operationDelegate videoViewWillStartPrepare:self];
@@ -284,8 +289,9 @@ static void * kCTVideoViewKVOContext = &kCTVideoViewKVOContext;
             if ([strongSelf.operationDelegate respondsToSelector:@selector(videoViewDidFinishPrepare:)]) {
                 [strongSelf.operationDelegate videoViewDidFinishPrepare:strongSelf];
             }
-            
-            [strongSelf checkAndPlayAfterPrepareFinished];
+            if (autoplay) {
+                [strongSelf checkAndPlayAfterPrepareFinished];
+            }
         });
     }];
 }
